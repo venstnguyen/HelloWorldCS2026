@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Variable Treasure Box</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: navy;
+    }
+
+    .widget {
+      border-radius: 16px;
+      padding: 24px 28px;
+      width: 360px;
+      border: 1px solid black;
+      background-color: white;
+    }
+
+    .box {
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid black;
+    }
+
+    .var-name {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .var-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    input[type="number"] {
+      padding: 7px 11px;
+      border-radius: 8px;
+      border: 1px solid gray;
+      width: 80px;
+      font-size: 0.8rem;
+    }
+
+    button {
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .log {
+      border-radius: 10px;
+      border: 1px dashed gray;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      max-height: 76px;
+      overflow-y: auto;
+      background: #f0f0f0;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <h1>The Variable Treasure Box !!!</h1>
+    <h2>A variable is a box that remembers a value you can set.</h2>
+
+    <div class="box variable">
+      <div class="var-name">variable name: <strong>Coins</strong></div>
+      <div class="var-value" id="valueDisplay">0</div>
+      <div class="value-tag">
+        <span class="value-dot" id="valueDot"></span>
+        <span id="valueWord">Coins is 0</span>
+      </div>
+    </div>
+
+    <div class="step-label">Step 1: Change amount of Coins in the Box!</div>
+    <p class="explain" id="explainText">
+      Type a number below and press **Set Coins** to change what is stored inside <strong>Coins</strong>.
+    </p>
+
+    <div class="controls">
+      <input type="number" id="CoinsInput" value="0" />
+      <button id="setCoinsBtn">Set Coins</button>
+    </div>
+
+    <div class="log" id="logBox">
+      <div class="log-line">Watch how the value of Coins changes here.</div>
+      <div class="log-line">Fun Fact: Variable can also be words or letters!</div>
+    </div>
+  </div>
+
+  <script>
+    const valueDisplay = document.getElementById("valueDisplay");
+    const valueWord = document.getElementById("valueWord");
+    const explainText = document.getElementById("explainText");
+    const logBox = document.getElementById("logBox");
+    const CoinsInput = document.getElementById("CoinsInput");
+
+    let Coins = 0;
+
+    function updateDisplay(message) {
+      valueDisplay.textContent = Coins;
+      valueWord.textContent = "Coins = " + Coins;
+      CoinsInput.value = Coins;
+
+      const line = document.createElement("div");
+      line.className = "log-line";
+      line.textContent = message;
+      logBox.appendChild(line);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    document.getElementById("setCoinsBtn").addEventListener("click", () => {
+      const newCoins = parseInt(CoinsInput.value);
+      if (isNaN(newCoins)) return;
+
+      Coins = newCoins;
+      explainText.innerHTML = "The variable <strong>Coins</strong> now remembers **" + Coins + "** instead of the old value.";
+      updateDisplay("Set Coins to " + Coins + ".");
+    });
+
+    updateDisplay("Started Coins at 0.");
+  </script>
+</body>
+</html>
